@@ -41,7 +41,8 @@ public class LoginServlet extends HttpServlet {
         
         // login
         AccountService as = new AccountService();
-        User user = as.login(username, password);
+        String path = getServletContext().getRealPath("/WEB-INF");
+        User user = as.login(username, password, path);
         
         if (user == null) {
             request.setAttribute("username", username);

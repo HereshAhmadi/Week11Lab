@@ -1,6 +1,11 @@
 package services;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.util.HashMap;
 import java.util.Properties;
+import java.util.logging.Level;
 import javax.mail.Address;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -11,8 +16,39 @@ import javax.mail.internet.MimeMessage;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class GmailService {
+    
+    public static void sendMailTemplated(String to, String subject, String template, HashMap<String, String> tags) throws Exception {
+        // [[firstname]] -> Anne
+        // [[date]] -> 3/30/2021
+
+        String body = "";
+        
+        try {
+            // read whole template into a single variable (body)
+            BufferedReader br = new BufferedReader(new FileReader(new File(template)));
+            String line = br.readLine();
+            while(line != null) {
+                body += line;
+                line = br.readLine();
+            }
+            
+            // Replace all placeholders with the proper value
+            for(String key: tags.keySet()) {
+                body = body.replace("[["+key+"]]", tags.get(key));
+            }
+        
+        
+        } catch (Exception ex) {
+            Logger.getLogger( GmailService.class.getName() ).log(Level.SEVERE, null, ex);
+        }
+
+        sendMail(to, subject, body, true);
+        
+    }
 
     public static void sendMail(String to, String subject, String body, boolean bodyIsHTML) throws MessagingException, NamingException {
         
@@ -21,6 +57,7 @@ public class GmailService {
         String username = (String) env.lookup("webmail-username");
         String password = (String) env.lookup("webmail-password");
 
+        // Set up e-mail session
         Properties props = new Properties();
         props.put("mail.transport.protocol", "smtps");
         props.put("mail.smtps.host", "smtp.gmail.com");
