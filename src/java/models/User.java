@@ -3,15 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package models;
+package models; 
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author dyadlows
+ * @author 699785
  */
 @Entity
 @Table(name = "user")
@@ -36,7 +36,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email")
     , @NamedQuery(name = "User.findByFirstName", query = "SELECT u FROM User u WHERE u.firstName = :firstName")
     , @NamedQuery(name = "User.findByLastName", query = "SELECT u FROM User u WHERE u.lastName = :lastName")
-    , @NamedQuery(name = "User.findByActive", query = "SELECT u FROM User u WHERE u.active = :active")})
+    , @NamedQuery(name = "User.findByActive", query = "SELECT u FROM User u WHERE u.active = :active")
+    , @NamedQuery(name = "User.findByResetPasswordUUID", query = "SELECT u FROM User u WHERE u.resetPasswordUUID = :resetPasswordUUID")})
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -56,10 +57,12 @@ public class User implements Serializable {
     private String lastName;
     @Column(name = "active")
     private Boolean active;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner", fetch = FetchType.EAGER)
+    @Column(name = "ResetPasswordUUID")
+    private String resetPasswordUUID;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
     private List<Note> noteList;
     @JoinColumn(name = "role", referencedColumnName = "role_id")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     private Role role;
 
     public User() {
@@ -121,6 +124,14 @@ public class User implements Serializable {
 
     public void setActive(Boolean active) {
         this.active = active;
+    }
+
+    public String getResetPasswordUUID() {
+        return resetPasswordUUID;
+    }
+
+    public void setResetPasswordUUID(String resetPasswordUUID) {
+        this.resetPasswordUUID = resetPasswordUUID;
     }
 
     @XmlTransient

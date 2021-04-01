@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context path="/Week11Demo">
+<Context path="/Week1b">
     <Resource
         name="jdbc/notesdb"
-        url="jdbc:mysql://localhost:3306/notesdb"
+        url="jdbc:mysql://localhost:3308/notesdb"
         username="root"
         password="password"
         maxIdle="30"

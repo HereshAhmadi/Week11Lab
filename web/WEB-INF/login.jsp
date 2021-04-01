@@ -17,5 +17,7 @@
             <br>
             <input type="submit" value="Sign in">
         </form>
+            <p>${message}</p>
+            <p><a href="reset" />Reset Password</p>
     </body>
 </html>

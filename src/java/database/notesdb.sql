@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS `notesdb`.`user` (
   `last_name` VARCHAR(20),
   `active` BOOLEAN DEFAULT true,
   `role` INT(11) NOT NULL,
+   `ResetPasswordUUID` varchar(50),
   PRIMARY KEY (`username`),
   CONSTRAINT `fk_user_role`
     FOREIGN KEY (`role`)
@@ -57,7 +58,7 @@ VALUES
 ('matilda','password','sait.cprg.352+matilda@gmail.com','Matilda','Keybroke',3),
 ('jerry','password','sait.cprg.352+jerry@gmail.com','Jerry','Atrick',2),
 ('anita','password','sait.cprg.352+anita@gmail.com','Anita','Knapp',3),
-('billy','password','youremail+billy@gmail.com','Billy','Maizear',3),
+('billy','password','hereshtesting@gmail.com','Billy','Maizear',3),
 ('patty','password','sait.cprg.352+patty@gmail.com','Patrick','O''Furniture',3);
 COMMIT;
 

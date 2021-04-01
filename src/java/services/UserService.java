@@ -44,4 +44,12 @@ public class UserService {
         user.setLastName(lastname);
         return userDB.insert(user);
     }
+
+    public User getByEmail(String email) {
+        return userDB.getUserByEmail(email);
+    }
+
+    public User getByUUID(String uuid) {
+        return userDB.getUserByUUID(uuid);
+    }
 }
