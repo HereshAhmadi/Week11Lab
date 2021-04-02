@@ -36,6 +36,10 @@
         <servlet-name>ResetPasswordServlet</servlet-name>
         <servlet-class>servlets.ResetPasswordServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ForgotPasswordServlet</servlet-name>
+        <servlet-class>servlets.ForgotPasswordServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>NoteServlet</servlet-name>
         <url-pattern>/notes</url-pattern>
@@ -51,6 +55,10 @@
     <servlet-mapping>
         <servlet-name>ResetPasswordServlet</servlet-name>
         <url-pattern>/reset</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ForgotPasswordServlet</servlet-name>
+        <url-pattern>/forgot</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

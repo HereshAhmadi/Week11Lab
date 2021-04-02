@@ -11,7 +11,7 @@ import models.User;
 
 public class AccountService {
 
-    public String resetPassword(String email, String path, String url) {
+    public boolean resetPassword(String email, String path, String url) {
         String uuid = UUID.randomUUID().toString();
         UserDB userDB = new UserDB();
 
@@ -23,7 +23,7 @@ public class AccountService {
 
                 String to = user.getEmail();
                 String subject = "NoteKeeper Password Reset";
-                 String template = path + "/email_templates/resetpassword.html";
+                String template = path + "/email_templates/resetpassword.html";
                 
                 String link = url + "?uuid=" + uuid;
                 
@@ -41,15 +41,15 @@ public class AccountService {
                 //send template e-mail
                 String escape = "{{";
                 GmailService.sendMailTemplate(to, subject, template, tags,escape);
-                return uuid;
+                
+                return true;
             }
         } catch (Exception e) {
 
             Logger.getLogger(AccountService.class.getName()).log(Level.INFO, "can't send reset passsword email", email);
         }
-        
-        return null;
-
+       
+        return false;
     }
 
     public boolean changePassword(String uuid, String password) {
